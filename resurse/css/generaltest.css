@@ -1,0 +1,104 @@
+body{
+    --culoare-fundal: #EDE0D4;
+    --culoare-text: #5D4037;
+    --culoare-accent: #3E2723;
+    --culoare-highlight: #D4A373;
+    --culoare-border: #A67B5B;
+}
+
+html {
+    font-size: 18px;
+}
+
+body {
+    --spatiere-pagina:80px;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+h2 {
+    font-size: 1.6rem;
+}
+
+h3 {
+    font-size: 1.3rem;
+}
+
+.taburi-iframe > a {
+    display: block;
+    width: 100px;
+    height: 50px;
+    border: 1px solid var(--culoare-border);
+    background-color: var(--culoare-deschisa);
+    text-align: center;
+}
+
+.taburi-iframe {
+    display: flex;
+    justify-content: center;
+}
+
+.container-iframe {
+    width: 60%;
+    max-width: 500px;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.container-iframe > iframe {
+    width: 100%;
+}
+
+#grid-pagina {
+    display: grid;
+    grid-template-areas: 
+        "welcome welcome welcome"
+        "produse produse produse"
+        "limonada-vs-cafea limonada-vs-cafea limonada-vs-cafea"
+        "sirop_limonada produse_cafea fig1"
+        "baze baze ustensile"
+        "retete retete retete"
+        "ghid ghid ghid"
+        "lista_pdf lista_pdf lista_pdf"
+        "promo despre ajutor";
+}
+
+#grid-pagina > * {
+    outline: 1px solid navy;
+    padding: 7px;
+}
+
+#grid-pagina > figure {
+    margin: 0;
+}
+
+#grid-pagina img {
+    width: 100%;
+    max-width: 300px;
+}
+
+main{
+    padding-left: var(--spatiere-pagina);
+    padding-right: var(--spatiere-pagina);
+}
+
+#welcome { grid-area: welcome; }
+#produse { grid-area: produse; }
+#limonada-vs-cafea { grid-area: limonada-vs-cafea; }
+#sirop_limonada { grid-area: sirop_limonada; }
+#produse_cafea { grid-area: produse_cafea; }
+#fig1 {grid-area:fig1; }
+#baze { grid-area: baze; }
+#ustensile { grid-area: ustensile; }
+#ghid { grid-area: ghid; }
+#lista_pdf {grid-area: lista_produse_pdf;}
+#retete { grid-area: retete; }
+#promo { grid-area: promo; }
+#despre { grid-area: despre; }
+#ajutor { grid-area: ajutor; }
+
+figcaption {
+    text-align: center;
+}

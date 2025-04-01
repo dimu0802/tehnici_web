@@ -1,0 +1,345 @@
+html{
+    font-size: 18px;
+    --padding-text: 10px;
+}
+
+p, h1, h2, h3, h4, h5, h6{
+    padding: var(--padding-text);
+}
+
+body{
+    --spatiere-pagina: 80px;
+    --culoare-fundal: #EDE0D4;
+    --culoare-text: #5D4037;
+    --culoare-accent: #3E2723; 
+    --culoare-highlight: #D4A373; 
+    --culoare-border: #A67B5B; 
+}
+
+h2{
+    font-size: 1.6rem;
+
+}
+h3{
+    font-size:  1.3rem;
+
+}
+
+.container-iframe {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: right;
+    width: 100%;
+    position:; 
+}
+
+.container-iframe iframe {
+    width: 100%;
+    height: 400px;
+    min-width: 300px;
+    max-width: 1000px;
+  }
+
+.container-iframe > iframe {
+    width: 100%;
+}
+
+.taburi-iframe {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap ;
+    right:10px;
+    bottom:10px;
+}
+
+.taburi-iframe .tab-iframe{
+    border-top: 7px solid var(--culoare-highlight);
+    border-left: 7px solid rgba(0, 0, 0, 0);
+    border-right: 7px solid rgba(0, 0, 0, 0);
+    display: flex;
+}
+
+.taburi-iframe .tab-iframe > a {
+    display: block;
+    width:90px;
+    height: 70px;
+    background-color: var(--culoare-highlight);
+    text-align: center;
+    color: var(--culoare-fundal);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: inset 0 -3px 10px 5px rgba(224, 225, 221, 0.3);
+    border: 2px solid var(--culoare-5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .taburi-iframe .tab-iframe > a:hover {
+    box-shadow: none;
+    transition: box-shadow 1s;
+  }
+
+#grid-pagina{
+    display:grid;
+    gap: 10px;
+    grid-template-areas:  
+        "welcome welcome welcome welcome"
+        "produse limonada-vs-cafea limonada-vs-cafea limonada-vs-cafea"
+        "produse sirop_limonada sirop_limonada sirop_limonada"
+        "baze produse_cafea produse_cafea ustensile"
+        "retete retete retete retete"
+        "ghid promo promo despre"
+        "lista_pdf lista_pdf lista_pdf lista_pdf"
+        "program-customer-service program-customer-service ajutor ajutor";
+}
+
+#grid-pagina > *{
+    background-color: var(--culoare-fundal);
+    border: 2px solid var(--culoare-border);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#grid-pagina > figure{
+    margin: 0;
+}
+#grid-pagina img{
+    width: 100%;
+    max-width: 300px;
+}
+
+
+main{
+    padding-left: var(--spatiere-pagina);
+    padding-right: var(--spatiere-pagina);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#welcome{
+    grid-area: welcome;
+}
+
+#produse{
+    grid-area: produse;
+}
+
+#limonada-vs-cafea{
+    grid-area: limonada-vs-cafea;
+}
+
+#sirop_limonada{
+    grid-area: sirop_limonada;
+}
+
+#produse_cafea{
+    grid-area: produse_cafea;
+}
+
+#baze{
+    grid-area: baze;
+}
+
+#ustensile{
+    grid-area: ustensile;
+}
+
+#ghid{
+    grid-area: ghid;
+}
+#lista_pdf {
+    grid-area: lista_produse_pdf;
+}
+
+#retete{
+    grid-area: retete;
+}
+
+#promo{
+    grid-area: promo;
+}
+
+#despre{
+    grid-area: despre;
+}
+
+#ajutor{
+    grid-area: ajutor;
+}
+
+#program-customer-service {
+    grid-area: program-customer-service;
+    text-align: center;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.table-container {
+    overflow-x: auto; 
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 5px inset #555;
+    margin-top: 10px;
+}
+
+caption {
+    caption-side: bottom;
+    font-style: italic;
+    padding-top: 10px;
+    color: #666;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+thead {
+    background-color: #ffcc00;
+}
+
+tfoot {
+    background-color: #eeeeee;
+}
+
+tbody tr:nth-child(odd) td {
+    border-bottom: 1px solid #ff5733;
+}
+tbody tr:nth-child(even) td {
+    border-bottom: 1px solid #3388ff;
+}
+
+tbody tr:hover {
+    outline: 5px solid rgba(0, 0, 0, 0.7);
+    transition: outline 0.5s ease-in-out;
+}
+
+
+body {
+    background-color: var(--culoare-fundal);
+    color: var(--culoare-text);
+}
+
+header, footer {
+    background-color: var(--culoare-border);
+    border-bottom: 3px solid var(--culoare-highlight);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+#site-title{
+    font-family: 'Boldonse', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+figcaption{
+    text-align:center;
+}
+
+.link-top{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.5); 
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background-color 0.5s, opacity 0.5s;
+    opacity: 0.7;
+}
+
+.link-top:hover {
+    background-color: rgba(0, 0, 0, 1);
+    opacity: 1;
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 20px solid white;
+    transition: border-bottom-color 0.5s;
+}
+
+.link-top:hover .triangle {
+    border-bottom-color: yellow;
+}
+
+.link-top::after {
+    content: "Urcă înapoi sus";
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.5s;
+    white-space: nowrap;
+}
+
+.link-top:hover::after {
+    opacity: 1;
+}
+
+@media screen and (max-width: 1200px){
+    html{
+        font-size: 14px;
+    }
+
+    body{
+        --spatiere-pagina: 50px;
+    }
+
+    #grid-pagina{
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: "welcome welcome"
+            "produse produse"
+            "limonada-vs-cafea limonada-vs-cafea"
+            "sirop_limonada sirop_limonada"
+            "produse_cafea produse_cafea"
+            "baze ustensile"
+            "retete retete"
+            "ghid ghid"
+            "lista_pdf"
+            "promo despre"
+            "ajutor ajutor"
+            "orar orar";
+        gap: 7px;
+    }
+}
+
+@media screen and (max-width:800px) {
+    #grid-pagina{
+        display: block;
+        gap: 5px;
+    }
+
+    html{
+        font-size:10px;
+    }
+
+    body{
+        --spatiere-pagina:20px;
+    }    
+
+    
+}
