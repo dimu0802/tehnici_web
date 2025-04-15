@@ -28,9 +28,8 @@ h3{
 .container-iframe {
     display: flex;
     flex-direction: column-reverse;
-    align-items: right;
+    align-items: center;
     width: 100%;
-    position:; 
 }
 
 .container-iframe iframe {
@@ -340,6 +339,4 @@ figcaption{
     body{
         --spatiere-pagina:20px;
     }    
-
-    
 }

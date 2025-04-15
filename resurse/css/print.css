@@ -1,0 +1,96 @@
+@media print{
+    img, video, iframe, embed, object, figure, .link-top, #link-top{
+        display: none;
+    }
+
+    #grid-pagina{
+        display: block;
+    }
+
+    a{
+        color: black;
+        text-decoration:none;
+    }
+
+    footer p.banner-proiect{
+        display: block;
+        position: absolute;
+        bottom:2cm;
+        left: 15%;
+        width: 70%;
+        text-align: center;
+        border: 4px inset black;
+        padding: 5px;
+        page-break-inside: avoid;
+    }
+
+    header h1#site-title{
+        text-align: center;
+        page-break-after: avoid;
+    }
+
+    nav ul.meniu{
+        display: block !important;
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    nav ul.meniu > li{
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    nav ul.meniu ul.submeniu{
+        display: none;
+    }
+
+    nav{
+        page-break-after: always;
+    }
+
+    footer{
+        page-break-before: always;
+    }
+
+    body::after{
+        content: "Purcarea\a Dimu-Matei";
+        white-space: pre;
+        display: block;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 4cm;
+        height: 1.2cm;
+        border: 3px solid black;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: bold;
+        opacity: 0.4;
+        z-index: 9999;
+        page-break-inside: avoid;
+    }
+
+    @page{
+        size: A4 portrait;
+        margin-top: 2cm;
+        margin-bottom: 2cm;
+    }
+
+    @page :left{
+        margin-left: 3cm;
+        margin-right: 1cm;
+    }
+
+    @page :right{
+        margin-left: 1cm;
+        margin-right: 3cm;
+    }
+
+    #container-iframe, #video-retete, #lista_produse_pdf, #limonada-vs-cafea img{
+        display: none;
+    }
+
+    section, article{
+        page-break-inside: avoid;
+    }
+}

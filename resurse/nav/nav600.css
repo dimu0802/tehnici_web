@@ -1,0 +1,157 @@
+#toggle-meniu {
+  display: none;
+}
+
+.hamburger {
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 1rem;
+  z-index: 10;
+}
+
+.hamburger span {
+  height: 3px;
+  width: 25px;
+  background: black;
+  border-radius: 3px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.meniu-mobil {
+  position: fixed;
+  top: 60px;
+  left: 10px;
+  background: #A67B5B;
+  padding: 1rem;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transform-origin: top left;
+          transform-origin: top left;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  transition: -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+  width: 80%;
+  max-width: 250px;
+}
+
+.meniu-mobil ul.meniu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.meniu-mobil ul.meniu li {
+  position: relative;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.meniu-mobil ul.meniu li > a, .meniu-mobil ul.meniu li > div {
+  text-decoration: none;
+  color: black;
+  padding: 0.8rem 1rem;
+  display: block;
+  border-radius: 5px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.meniu-mobil ul.meniu li > a:hover, .meniu-mobil ul.meniu li > div:hover {
+  background: rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.meniu-mobil ul.meniu li ul.submeniu {
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+  background: #f5f5f5;
+  border-radius: 5px;
+}
+
+.meniu-mobil ul.meniu li ul.submeniu li {
+  margin: 0;
+}
+
+.meniu-mobil ul.meniu li ul.submeniu li a {
+  display: block;
+  padding: 0.6rem 1rem;
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9rem;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.meniu-mobil ul.meniu li ul.submeniu li a:hover {
+  background-color: #A67B5B;
+  color: white;
+  -webkit-transform: translateX(5px);
+          transform: translateX(5px);
+}
+
+.meniu-mobil ul.meniu li:hover ul.submeniu,
+.meniu-mobil ul.meniu li:focus-within ul.submeniu {
+  display: block;
+}
+
+#toggle-meniu:checked + .hamburger + .meniu-mobil {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+@media screen and (max-width: 600px) {
+  .hamburger {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: white;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+  nav.meniu-clasic {
+    display: none;
+  }
+  .meniu-mobil ul.meniu li a {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .meniu-mobil ul.meniu li:last-child a {
+    border-bottom: none;
+  }
+  .meniu-mobil ul.meniu li ul.submeniu {
+    position: static;
+    width: auto;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+  .meniu-mobil ul.meniu li ul.submeniu li a {
+    text-align: center;
+    padding-left: 1rem;
+  }
+}
+/*# sourceMappingURL=nav600.css.map */
