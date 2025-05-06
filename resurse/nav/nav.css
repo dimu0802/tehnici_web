@@ -7,6 +7,10 @@ body {
   color: var(--culoare-text);
 }
 
+#hamburger, #toggle-meniu{
+  display: none;
+}
+
 nav ul.meniu {
   list-style: none;
   display: -webkit-box;
@@ -103,4 +107,4 @@ nav ul.meniu li:hover > ul {
   -webkit-transform: scaleY(1);
           transform: scaleY(1);
 }
-/*# sourceMappingURL=nav.css.map */
+

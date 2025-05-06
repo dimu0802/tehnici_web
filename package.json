@@ -1,0 +1,29 @@
+{
+  "name": "tehnici-web",
+  "version": "1.0.0",
+  "description": "Proiect la Tehnici Web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dimu0802/tehnici_web.git"
+  },
+  "keywords": [
+    "limonada",
+    "cafea",
+    "sirop",
+    "ustensile"
+  ],
+  "author": "Purcarea Dimu-Matei",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dimu0802/tehnici_web/issues"
+  },
+  "homepage": "https://github.com/dimu0802/tehnici_web#readme",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0"
+  }
+}

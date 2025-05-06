@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <title>Bartending at Home</title>
+    <%- include ('../fragmente/head.ejs') %>
+</head>
+<body id="top">
+    <%- include ('../fragmente/header.ejs') %>
+    <main id="grid-pagina">
+        <section id="welcome">
+            <h2>Bine ati venit</h2>
+            <div class="date-utilizator">
+                IP-ul tău este: <%= ip_utilizator %>
+            </div>
+            <p class="intro">Va multumim ca ne vizitati site-ul. Speram ca putem sa te ajutam sa gasesti combinatia perfecta pentru bauturile tale!</p>
+            <picture>
+                <source srcset="/resurse/img/produse-small.jpg" media="(max-width: 600px)">
+                <source srcset="/resurse/img/produse-medium.jpg" media="(max-width: 1024px)">
+                <img src="/resurse/img/produse-large.jpg" alt="Colecție de produse pentru barmani">
+            </picture>
+        </section>
+        <section id="produse">
+            <h2>Produse</h2>
+                <p>Descoperă gama noastră variată de produse pentru barmani: siropuri, topping-uri, baze pentru băuturi și accesorii profesionale.</p>
+                <ul>
+                    <li><a href="#sirop_limonada">Siropuri pentru limonada</a></li>
+                    <li><a href="#produse_cafea">Produse pentru Cafea</a></li>
+                        <ul>
+                                <li>Siropuri pentru cafea</li>
+                                <li>Topping-uri pentru cafea</li>
+                        </ul>
+                    <li><a href="#baze">Baze pentru bauturi</a></li>
+                        <ul>
+                            <li>Baze pentru frappe-uri</li>
+                            <li>Baze pentru cocktail-uri</li>
+                        </ul>
+                    <li><a href="#ustensile">Ustensile de bar</a></li>
+                        <ul>
+                            <li>Lingurite</li>
+                            <li>Shakere</li>
+                            <li>Masuri</li>
+                        </ul>
+                </ul>
+            </section>
+
+            <section id="limonada-vs-cafea">
+                <h3>Ce preferi?</h3>
+                <p>Alegi limonadă sau cafea?</p>
+                <img
+                    src="/resurse/img/limonada_vs_cafea.jpg"
+                    alt="limonada-vs-cafea"
+                    usemap="#mapa_bauturi"
+                    width="400"
+                    height="300"
+                />
+            
+                <map name="mapa_bauturi">
+                    <area
+                        shape="rect"
+                        coords="0,0,300,300"
+                        alt="Limonadă"
+                        href="#sirop_limonada"
+                    />
+                        <area
+                        shape="rect"
+                        coords="300,0,600,300"
+                        alt="Cafea"
+                        href="#produse_cafea"
+                    />
+                </map>
+            </section>
+        
+            <section id="sirop_limonada">
+                <h3>Siropuri pentru limonada</h3>
+                <p>Ofera-i <b>limonadei tale</b> clasice o aroma noua, cu ajutorul siropurilor noastre</p>
+                <p>Portofoliul nostru de produse contine o multitudine de siropuri care pot potenta gustul placut de limonada:</p>
+                <ul>
+                    <li>Sirop de zmeură-oferă o aromă intens fructată și ușor acrișoară, perfectă pentru o limonadă revigorantă.</li>
+                    <li>Sirop de căpșuni-adaugă un gust dulce și parfumat, ideal pentru o limonadă cu un plus de prospețime.</li>
+                    <li>Sirop de mango-un strop de exotism pentru limonada ta, cu un gust dulce și catifelat.</li>
+                    <li>Sirop de fructul pasiunii-o combinație unică de dulceață și aciditate, care transformă orice limonadă într-o băutură specială.</li>
+                    <li>Sirop de piersici-o aromă delicată și ușor florală, potrivită pentru o limonadă dulce și răcoritoare.</li>
+                    <li>Sirop de lavandă-adaugă o notă elegantă și relaxantă, perfectă pentru un moment de răsfăț.</li>
+                    <li>Sirop de mentă-răcoritor și revigorant, ideal pentru zilele toride de vară.</li>
+                    <li>Sirop de afine-un gust intens și ușor acrișor, care oferă limonadei o culoare vibrantă și un plus de antioxidanți.</li>
+                    <li>Sirop de rodie-dulce-acrișor și bogat în arome, perfect pentru o limonadă sofisticată.</li>
+                    <li>Sirop de soc-un gust floral, ușor dulceag, ce transformă limonada într-o băutură rafinată și revigorantă.</li>
+                </ul>
+            </section>
+
+            <section id="produse_cafea">
+                <h3>Produse pentru cafea</h3>
+                <p>Îmbogățește-ți experiența cafelei cu produsele noastre premium. De la siropuri aromate la topping-uri delicioase, avem tot ce îți trebuie pentru a transforma orice cafea într-o adevărată specialitate.</p>
+            
+                <article>
+                    <h4>Siropuri pentru cafea</h4>
+                    <p>Adaugă o notă dulce și parfumată cafelei tale cu siropurile noastre speciale. Sunt perfecte pentru cappuccino, latte sau chiar espresso.</p>
+                    <ul>
+                        <li>Sirop de caramel-un gust dulce și bogat, ideal pentru latte macchiato.</li>
+                        <li>Sirop de vanilie-o aromă delicată, perfectă pentru cappuccino.</li>
+                        <li>Sirop de alune-o combinație rafinată, perfectă pentru espresso.</li>
+                        <li>Sirop de ciocolată-o alegere clasică pentru o cafea mai intensă.</li>
+                        <li>Sirop de cocos-o notă exotică pentru iubitorii de arome unice.</li>
+                    </ul>
+            
+                    <h4>Topping-uri pentru cafea</h4>
+                    <p>Îți place cafeaua decorată elegant? Topping-urile noastre adaugă un plus de savoare și un aspect apetisant băuturilor tale preferate.</p>
+                    <ul>
+                        <li>Frișcă-un strat fin și aerat pentru un cappuccino delicios.</li>
+                        <li>Pudră de cacao-un gust ușor amărui, perfect pentru cappuccino sau mocha.</li>
+                        <li>Scorțișoară măcinată-adaugă o notă caldă și aromată cafelei.</li>
+                        <li>Fulgi de ciocolată-ideali pentru un latte cremos și decadent.</li>
+                        <li>Sos de caramel-o alegere excelentă pentru o cafea dulce și intensă.</li>
+                    </ul>
+                </article>
+            </section>
+            
+            <section id="baze">
+                <h3>Baze pentru băuturi</h3>
+                <p>Cu ajutorul mix-urilor noastre prestabilite, vă ajutăm să realizați băuturi rapide și gustoase, perfecte pentru orice ocazie.</p>
+                <article>
+                    <h4>Baze pentru frappe-uri</h4>
+                    <p>Mixurile noastre pentru frappe-uri oferă o textură cremoasă și un gust echilibrat, ideal pentru a crea băuturi răcoritoare și delicioase. Sunt ușor de preparat și se combină perfect cu siropuri aromate sau topping-uri.</p>
+                    
+                    <h4>Baze pentru cocktail-uri</h4>
+                    <p>Fie că este vorba de cocktailuri alcoolice sau non-alcoolice, bazele noastre ajută la obținerea unor băuturi echilibrate și aromate. Acestea sunt create pentru a se combina armonios cu sucuri, lichioruri și alte ingrediente.</p>
+                </article>
+            </section>
+            
+            <section id="ustensile">
+                <h3>Ustensile de bar</h3>
+                <p>Fie că ești un profesionist sau un pasionat al băuturilor artizanale, ustensilele potrivite sunt esențiale pentru a prepara băuturi perfecte. Descoperă selecția noastră de accesorii esențiale pentru orice bar.</p>
+                <article>
+                    <h4>Lingurițe</h4>
+                    <p>Lingurițele de bar sunt ideale pentru amestecarea ingredientelor din cocktailuri și alte băuturi. Datorită designului lor ergonomic și tijei spiralate, permit un amestec uniform și elegant.</p>
+                    
+                    <h4>Shakere</h4>
+                    <p>Shakerele sunt instrumente indispensabile pentru prepararea cocktailurilor. Disponibile în diverse modele și materiale, acestea ajută la combinarea perfectă a ingredientelor, oferind un gust echilibrat și o textură fină.</p>
+                    
+                    <h4>Măsuri</h4>
+                    <p>Pentru a obține băuturi bine echilibrate, măsurile sunt esențiale. Acestea te ajută să dozezi corect lichidele și să respecți rețetele tradiționale sau creative ale cocktailurilor.</p>
+                </article>
+            </section>
+            
+            <section id="ghid">
+                <h3>Lista completa a Produselor</h3>
+                <p>Descarca o lista cu toate produsele noastre, pe categorii</p>
+                <a href="/resurse/lista-produse.pdf" download>Descarcă lista de produse</a>
+            </section>
+            <br/>
+
+            <section id="lista_produse_pdf">
+                <embed src="/resurse/pdf/2024-Monin-Catalog.pdf" type="application/pdf" width="300" height="600">
+            </section>
+
+            <section id="video">
+                <h2>Trucuri folositoare in Bar</h2>
+                <video controls style="width:80%; height:auto" preload="none" poster="/resurse/img/poster-vtt.jpg">
+                    <source src="/resurse/video/video-vtt.mp4" type="video/mp4">
+                    <source src="/resurse/video/video-vtt.webm" type="video/webm">
+                    <track default src="/resurse/video/tracks/subtr-romana.vtt" kind="subtitles" srclang="ro" label="Romana">
+                    <track src="/resurse/video/tracks/subtr-engleza.vtt" kind="subtitles" srclang="en" label="English">
+                </video>
+            </section>
+            
+            <section id="retete">
+                <h2>Ghid de retete</h2>
+                <p>În cadrul acestei secțiuni, veți găsi mai multe rețete care vă pot ajuta în realizarea băuturilor din confortul propriei case.</p>
+                
+                <div class="container-iframe">
+                    <div class="taburi-iframe">
+                        <div class="tab-iframe">
+                            <a href="https://www.youtube.com/embed/NANdz-YKMUw?si=a5llMLEsjZVx0zDe" target="video-retete">Mojito</a>
+                        </div>
+                        <div class="tab-iframe">
+                            <a href="https://www.youtube.com/embed/EvZObiiicoM?si=eMQM0FP7uQR28PnT" target="video-retete">Amaretto Sour</a>
+                        </div>
+                        <div class="tab-iframe">
+                            <a href="https://www.youtube.com/embed/HOesB2gJnPA?si=6C5DgmzNUt1aaSDA" target="video-retete">Hugo</a>
+                        </div>
+                    </div>
+            
+                    <iframe
+                        name="video-retete"
+                        width=auto
+                        height=auto
+                        src="https://www.youtube.com/embed/NANdz-YKMUw?si=a5llMLEsjZVx0zDe"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <a href="https://natashaskitchen.com/easy-caramel-sauce-recipe/" target="_blank">Reteta de Sos de Caramel pentru ciocolata calda</a>
+            </section>
+            <br/>
+
+            <aside id="promo">
+                <h2>Promoții & Oferte</h2>
+                <p>Descoperă <em>reducerile și pachetele</em> promoționale disponibile acum!</p>
+                <p>
+                    In campania promotionala din aceasta perioada, avem o reducere la toate bazele pentru frappe-uri
+                    Noul pret va fi urmatorul:
+                </p>
+            
+                <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+                    <mrow>
+                        <mi style="color: #3E2723; font-weight: bold;">Noul preț</mi>
+                        <mo style="color: #5D4037;">=</mo>
+                        <mi style="color: #3E2723; font-style: italic;">Preț actual</mi>
+                        <mo style="color: #5D4037;">×</mo>
+                        <mn style="color: #3E2723; text-decoration: underline;">75%</mn>
+                    </mrow>
+                </math>
+            </aside>
+            <br/>
+
+            <section id="despre">
+                <h2>Despre noi</h2>
+                <article>
+                    <h3>Review-uri</h3>
+                    <p><q>O gama de produse variata</q></p>
+                    <p>...</p>
+                </article>
+            </section>
+            <br/>
+
+            <section id="#ajutor">
+                <h2>Ajutor & Politici</h2>
+                <section id="faq">
+                    <h3>FAQ</h3>
+                    <details>
+                        <summary>Cât timp pot păstra siropurile după deschidere?</summary>
+                        <p>
+                            Majoritatea siropurilor pot fi păstrate timp de 3-6 luni după deschidere, dacă sunt depozitate într-un loc răcoros și ferite de lumină directă.
+                        </p>
+                    </details>
+                
+                    <details>
+                        <summary>Siropurile pot fi folosite și pentru deserturi?</summary>
+                        <p>
+                            Da! Siropurile noastre sunt perfecte pentru înghețată, prăjituri, clătite sau alte deserturi delicioase.
+                        </p>
+                    </details>
+                
+                    <details>
+                        <summary>Oferiți și pachete promoționale?</summary>
+                        <p>
+                            Da, avem oferte speciale și pachete promoționale. Vizitează secțiunea <a href="#promo">Promoții & Oferte</a> pentru detalii.
+                        </p>
+                    </details>
+                
+                    <details>
+                        <summary>Pot folosi siropurile în cocktailuri fără alcool?</summary>
+                        <p>
+                            Absolut! Siropurile sunt ideale pentru mocktailuri și băuturi răcoritoare fără alcool.
+                        </p>
+                    </details>
+                
+                    <details>
+                        <summary>Ce fac dacă am o alergie la un ingredient?</summary>
+                        <p>
+                            Consultă lista de ingrediente de pe eticheta produsului sau verifică detaliile în pagina produsului de pe site. Pentru informații suplimentare, ne poți contacta.
+                        </p>
+                    </details>
+                </section>
+            </section>
+            
+            <section id="program-customer-service">
+                <h2>Programul Serviciului de Relații cu Clienții</h2>
+                <p>Mai jos regăsiți programul în care serviciul nostru de suport este disponibil pentru a vă ajuta.</p>
+            
+                <div class="table-container">
+                    <table>
+                        <caption>Programul este valabil pentru toate departamentele.</caption>
+                        <thead>
+                            <tr>
+                                <th>Ziua</th>
+                                <th>Interval Orar</th>
+                                <th>Tip Suport</th>
+                                <th>Observații</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="2">Luni</td>
+                                <td>09:00 - 13:00</td>
+                                <td>Telefonic</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>14:00 - 18:00</td>
+                                <td>Chat Online</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Marți</td>
+                                <td colspan="2">09:00 - 17:00 (Telefonic & Chat)</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Miercuri</td>
+                                <td>10:00 - 16:00</td>
+                                <td>Email</td>
+                                <td>Răspuns în max. 24h</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4">Programul poate varia în zilele de sărbători.</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </section>
+        </main>
+        
+        <%- include ('../fragmente/footer.ejs') %>
+    </body>
+    </html>

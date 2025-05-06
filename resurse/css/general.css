@@ -89,7 +89,7 @@ h3{
         "baze produse_cafea produse_cafea ustensile"
         "retete retete retete retete"
         "ghid promo promo despre"
-        "lista_pdf lista_pdf lista_pdf lista_pdf"
+        "lista_pdf lista_pdf video video"
         "program-customer-service program-customer-service ajutor ajutor";
 }
 
@@ -150,6 +150,10 @@ main{
 }
 #lista_pdf {
     grid-area: lista_produse_pdf;
+}
+
+#video{
+    grid-area: video
 }
 
 #retete{
@@ -326,6 +330,25 @@ figcaption{
     }
 }
 
+::cue{
+    background: transparent;
+    color: white;
+    text-shadow: 2px 2px 4px black;
+}
+
+video{
+    width: 80%;
+    max-width: 800px;
+    min-width: 300px;
+    height: auto;
+}
+
+.info-utilizator {
+    font-size: 0.9em;
+    color: #555;
+    margin-left: 1em;
+}
+
 @media screen and (max-width:800px) {
     #grid-pagina{
         display: block;
@@ -340,3 +363,35 @@ figcaption{
         --spatiere-pagina:20px;
     }    
 }
+
+:root {
+    --culoare-vizitat: purple;
+  }
+  
+  a:visited {
+    color: var(--culoare-vizitat);
+  }
+  
+  a[href^="http"]::before {
+    content: "⮳";
+    font-size: 150%;
+    margin-right: 0.2em;
+  }
+  
+  a[href^="http"]:hover::before {
+    color: orange;
+  }
+  
+  main a {
+    position: relative;
+    display: inline-block;
+    background-image: radial-gradient(circle, orange 0%, orange 40%, transparent 80%, transparent 100%);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 0%;
+    transition: background-size 0.5s ease;
+  }
+    
+  main a:hover {
+    background-size: 100%;
+  }
