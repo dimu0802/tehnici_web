@@ -1,0 +1,60 @@
+{
+    "cale_galerie":"resurse/img/galerie",
+    "imagini": [
+        {
+            "fisier": "monin-alune.jpg", 
+            "descriere": "alune",
+            "luni": ["mai", "octombrie", "noiembrie", "decembrie", "ianuarie", "februarie"]
+        },
+        {
+            "fisier": "monin-biscuiti.jpg",
+            "descriere": "biscuiți",
+            "luni": ["mai", "noiembrie", "decembrie", "ianuarie"]
+        },
+        {
+            "fisier": "monin-caramel.jpg",
+            "descriere": "caramel",
+            "luni": ["mai", "octombrie", "noiembrie", "decembrie", "ianuarie"]
+        },
+        {
+            "fisier": "monin-coconut.jpg",
+            "descriere": "cocos",
+            "luni": ["mai", "iunie", "iulie", "august"]
+        },
+        {
+            "fisier": "monin-gingerbread.jpg",
+            "descriere": "turta dulce",
+            "luni": ["mai", "noiembrie", "decembrie"]
+        },
+        {
+            "fisier": "monin-lamaie.jpg",
+            "descriere": "lămâie",
+            "luni": ["aprilie", "mai", "iunie", "iulie", "august"]
+        },
+        {
+            "fisier": "monin-limonada.jpg",
+            "descriere": "limonadă",
+            "luni": ["mai", "iunie", "iulie", "august"]
+        },
+        {
+            "fisier": "monin-menta.jpg",
+            "descriere": "mentă",
+            "luni": ["mai", "iunie", "iulie", "august"]
+        },
+        {
+            "fisier": "monin-popcorn.jpg",
+            "descriere": "popcorn",
+            "luni": ["mai","septembrie", "octombrie", "noiembrie"]
+        },
+        {
+            "fisier": "monin-ciocolata.jpg",
+            "descriere": "ciocolata",
+            "luni": ["mai", "iunie"]
+        },
+        {
+            "fisier": "monin-vanilie.jpg",
+            "descriere":"vanilie",
+            "luni": ["mai", "iunie"]        
+        }
+    ]
+}

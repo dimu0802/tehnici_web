@@ -1,0 +1,21 @@
+@media (max-width: 1400px) {
+  nav ul.meniu {
+    font-size: 0.85rem;
+  }
+  nav ul.meniu li.home a {
+    position: relative;
+    font-size: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  nav ul.meniu li.home a::before {
+    content: "\f015";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 1.2rem;
+    color: var(--culoare-text);
+  }
+}

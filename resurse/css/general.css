@@ -1,3 +1,8 @@
+:root {
+    --culoare-selectie-fundal: #f2c94c;
+  --culoare-selectie-text: #2f2f2f;     
+}
+
 html{
     font-size: 18px;
     --padding-text: 10px;
@@ -87,10 +92,18 @@ h3{
         "produse limonada-vs-cafea limonada-vs-cafea limonada-vs-cafea"
         "produse sirop_limonada sirop_limonada sirop_limonada"
         "baze produse_cafea produse_cafea ustensile"
+        "hr hr hr hr"
+        "duotone-pic duotone-pic duotone-pic duotone-pic"
         "retete retete retete retete"
         "ghid promo promo despre"
-        "lista_pdf lista_pdf video video"
-        "program-customer-service program-customer-service ajutor ajutor";
+        "galerie-statica galerie-statica galerie-statica galerie-statica"
+        /* "lista_pdf lista_pdf lista_pdf lista_pdf" */
+        "video video video video"
+        "program-customer-service ajutor ajutor ajutor";
+}
+
+#stilizare-hr{
+    grid-area: hr;
 }
 
 #grid-pagina > *{
@@ -104,6 +117,7 @@ h3{
 #grid-pagina > figure{
     margin: 0;
 }
+
 #grid-pagina img{
     width: 100%;
     max-width: 300px;
@@ -164,6 +178,10 @@ main{
     grid-area: promo;
 }
 
+#galerie-statica{
+    grid-area: galerie-statica;
+}
+
 #despre{
     grid-area: despre;
 }
@@ -177,6 +195,10 @@ main{
     text-align: center;
     margin: 40px auto;
     padding: 20px;
+}
+
+#duotone-pic {
+    grid-area: duotone-pic;
 }
 
 .table-container {
@@ -321,6 +343,7 @@ figcaption{
             "produse_cafea produse_cafea"
             "baze ustensile"
             "retete retete"
+            "duotone-pic duotone-pic"
             "ghid ghid"
             "lista_pdf"
             "promo despre"
@@ -394,4 +417,135 @@ video{
     
   main a:hover {
     background-size: 100%;
+  }
+
+  
+/* poza duotone */
+  .duotone-image {
+    position: relative;
+    width: 600px;
+    height: 400px;
+    background-image: url(../img/duotone-pic.jpg);
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    cursor: pointer;
+  
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      transition: transform 1.2s ease-in-out;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+  
+    &::before {
+      background-color: #ff00ff; 
+      transform: translateX(-100%);
+      left: 0;
+    }
+  
+    &::after {
+      background-color: #0000ff;
+      transform: translateX(100%);
+      left: 0;
+    }
+  
+    &:hover::before,
+    &:hover::after {
+      transform: translateX(0);
+    }
+  }
+
+  /* scriere text coloane */
+  #produse_cafea article {
+    column-count: 2; 
+    column-gap: 2rem;
+    column-rule: 1px solid #999;
+  }
+  
+  @media screen and (max-width: 768px) {
+    #produse_cafea article {
+      column-count: 1;
+      column-rule: none;
+    }
+  }
+
+  /* text plimbare */
+  .banner-cafea {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    margin-bottom: 1rem;
+    height: 4.5rem;
+  }
+  
+  .banner-cafea p {
+    position: absolute;
+    white-space: nowrap;
+    animation: plimbare-text 12s linear infinite;
+    font-weight: bold;
+    color: #7b3f00;
+    font-size: 1.2rem;
+    padding-left: 100%;
+  }
+  
+  @keyframes plimbare-text {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+
+  /* culoare selectare */
+  ::selection {
+    background-color: var(--culoare-selectie-fundal);
+    color: var(--culoare-selectie-text);
+  }
+
+
+
+  #stilizare-hr {
+    position: relative;
+    border: none;
+    height: 2px; /* grosimea liniei */
+    background-color: #4A90E2; /* poți schimba culoarea cu una din schema aleasă */
+    margin: 40px auto;
+    width: 40%;
+    border-radius: 0;
+    z-index: 5;
+  }
+  
+  /* Triunghiul din stânga */
+  #stilizare-hr::before,
+  #stilizare-hr::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+  }
+  
+  /* Stânga */
+  #stilizare-hr::before {
+    left: -20px;
+    border-right: 20px solid #4A90E2;
+  }
+  
+  /* Dreapta */
+  #stilizare-hr::after {
+    right: -20px;
+    border-left: 20px solid #4A90E2;
   }

@@ -1,0 +1,82 @@
+#grid-galerie {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: auto;
+    counter-reset: figura-counter;
+    gap: 0.5em;
+}
+
+#grid-galerie figure {
+    position: relative;
+    margin:0;
+    overflow: hidden;
+    /* tranzitie figure */
+}
+
+#grid-galerie figcaption::before {
+    counter-increment: figura-counter;
+    content: counter(figura-counter, lower-alpha) ". ";
+}
+
+#grid-galerie picture img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+#grid-galerie figure picture img {
+    transition: transform 1.25s;
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+#grid-galerie figure figcaption {
+    transition: background-color 1.25s, color 1.25s;
+    background-color: lightgray;
+    color: black;                 
+    text-align: center;
+    padding: 0.3em;
+}
+
+#grid-galerie figure:hover picture img {
+    transform: translateY(-15%) scale(1.3);
+}
+
+#grid-galerie figure:hover figcaption {
+    background-color: black;  
+    color: orange;                 
+}
+
+@media screen and (min-width: 1001px) {
+    #grid-galerie figure:nth-child(1) { grid-area: 1 / 1 / 2 / 2; }
+    #grid-galerie figure:nth-child(2) { grid-area: 1 / 2 / 2 / 3; }
+    #grid-galerie figure:nth-child(3) { grid-area: 1 / 3 / 2 / 4; }
+    #grid-galerie figure:nth-child(4) { grid-area: 1 / 4 / 2 / 5; }
+    
+    #grid-galerie figure:nth-child(5) { grid-area: 2 / 1 / 3 / 2; }
+    #grid-galerie figure:nth-child(6) { grid-area: 2 / 4 / 3 / 5; }
+    
+    #grid-galerie figure:nth-child(7) { grid-area: 3 / 1 / 4 / 2; }
+    #grid-galerie figure:nth-child(8) { grid-area: 3 / 2 / 4 / 3; }
+    #grid-galerie figure:nth-child(9) { grid-area: 3 / 3 / 4 / 4; }
+    #grid-galerie figure:nth-child(10) { grid-area: 3 / 4 / 4 / 5; }
+}
+
+@media screen and (max-width: 1000px) and (min-width: 601px) {
+    #grid-galerie {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    #grid-galerie picture {
+        grid-area: auto;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #grid-galerie {
+        grid-template-columns: 1fr;
+    }
+    #grid-galerie picture {
+        grid-area: auto;
+    }
+}

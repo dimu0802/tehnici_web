@@ -12,6 +12,7 @@
             <div class="date-utilizator">
                 IP-ul tău este: <%= ip_utilizator %>
             </div>
+            <button type="button" class="btn btn-primary btn-lg">Stil-1-Mare</button>
             <p class="intro">Va multumim ca ne vizitati site-ul. Speram ca putem sa te ajutam sa gasesti combinatia perfecta pentru bauturile tale!</p>
             <picture>
                 <source srcset="/resurse/img/produse-small.jpg" media="(max-width: 600px)">
@@ -90,6 +91,9 @@
 
             <section id="produse_cafea">
                 <h3>Produse pentru cafea</h3>
+                <div class="banner-cafea">
+                   <p>Reduceri la siropuri și toppinguri!</p>
+                </div>
                 <p>Îmbogățește-ți experiența cafelei cu produsele noastre premium. De la siropuri aromate la topping-uri delicioase, avem tot ce îți trebuie pentru a transforma orice cafea într-o adevărată specialitate.</p>
             
                 <article>
@@ -149,8 +153,10 @@
             </section>
             <br/>
 
+            <hr id="stilizare-hr">
+
             <section id="lista_produse_pdf">
-                <embed src="/resurse/pdf/2024-Monin-Catalog.pdf" type="application/pdf" width="300" height="600">
+                <embed src="/resurse/pdf/2024-Monin-Catalog.pdf" type="application/pdf">
             </section>
 
             <section id="video">
@@ -195,7 +201,7 @@
             <br/>
 
             <aside id="promo">
-                <h2>Promoții & Oferte</h2>
+                <h2 id="titlu-promo" data-text="Promoții & Oferte">Promoții & Oferte</h2>
                 <p>Descoperă <em>reducerile și pachetele</em> promoționale disponibile acum!</p>
                 <p>
                     In campania promotionala din aceasta perioada, avem o reducere la toate bazele pentru frappe-uri
@@ -213,6 +219,11 @@
                 </math>
             </aside>
             <br/>
+
+            <!-- <div class="text-reflect-container">
+                <div class="text-original">Un text</div>
+                <div class="text-reflect">Un text</div>
+              </div> -->
 
             <section id="despre">
                 <h2>Despre noi</h2>
@@ -263,6 +274,12 @@
                         </p>
                     </details>
                 </section>
+            </section>
+
+            <%- include("../fragmente/galerie-statica.ejs") %>
+
+            <section>
+                <div class="duotone-image"></div>
             </section>
             
             <section id="program-customer-service">

@@ -1,0 +1,35 @@
+@use "../../node_modules/bootstrap/scss/bootstrap.scss" with (
+
+  $primary: #3E2723,         
+  $secondary: #D4A373,  
+  $success: #A67B5B,   
+  $info: #5D4037,            
+  $warning: #D4A373, 
+  $danger: #A67B5B,         
+  $light: #EDE0D4,         
+  $dark: #3E2723,           
+
+  $body-color: #5D4037, 
+  $headings-color: #3E2723, 
+
+  $grid-breakpoints: (
+    sm: 600px,
+    md: 960px,
+    lg: 1280px,
+    xl: 1600px
+  ),
+  $border-radius: 0.75rem,
+  $border-radius-sm: 0.5rem,
+  $border-radius-lg: 1rem,
+
+  $h1-font-size: 2.5rem,
+  $h2-font-size: 2.2rem,
+  $h3-font-size: 1.9rem,
+  $h4-font-size: 1.6rem,
+  $h5-font-size: 1.3rem,
+  $h6-font-size: 1.1rem,
+
+  $font-family-sans-serif: ("Montserrat", sans-serif),
+
+  $btn-padding-y: 0.8rem
+);
