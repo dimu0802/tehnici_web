@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Băuturi - Cofetăria Dulcelind</title>
+    <link rel="stylesheet" href="/resurse/css/produse.css">
+    <%- include("../fragmente/head") %>
+    <script src="/resurse/js/produse.js"></script>
+</head>
+<body>
+    <%- include("../fragmente/header") %>
+
+    <main>
+        <h1>Băuturi disponibile</h1>
+    
+        <section id="filtrare-produse" class="container mb-4">
+            <div class="row g-3">
+                <div class="col-md-6 col-lg-4">
+                    <label class="form-label">Nume:</label>
+                    <input type="text" id="inp-nume" class="form-control">
+                </div>
+        
+                <div class="col-md-6 col-lg-4">
+                    <label class="form-label">Cantitate (ml):</label>
+                    <div class="d-flex align-items-center gap-2">
+                        <span id="min-cant" class="text-nowrap">0</span>
+                        <input type="range" 
+                               id="inp-cantitate" 
+                               min="0" 
+                               max="2000" 
+                               value="0" 
+                               step="100" 
+                               class="form-range flex-grow-1 my-2">
+                        <span id="max-cant" class="text-nowrap">2000</span>
+                        <span id="infoCantitate" class="badge bg-primary ms-2">(0)</span>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4">
+                    <label class="form-label">Aromă:</label>
+                    <datalist id="lista-arome">
+                        <% for (let a of optiuni.arome) { %>
+                            <option value="<%= a %>">
+                        <% } %>
+                    </datalist>
+                    <input list="lista-arome" id="inp-aroma" class="form-control">
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <label class="form-label">Conține zahăr:</label>
+                    <div class="btn-group w-100" role="group" aria-label="Zahăr">
+                        <input type="radio" class="btn-check" name="gr_zahar" id="zahar_da" value="da" autocomplete="off">
+                        <label class="btn btn-outline-secondary" for="zahar_da">
+                            <i class="bi bi-check-lg"></i>
+                            <span class="d-none d-md-inline">Da</span>
+                        </label>
+        
+                        <input type="radio" class="btn-check" name="gr_zahar" id="zahar_nu" value="nu" autocomplete="off">
+                        <label class="btn btn-outline-secondary" for="zahar_nu">
+                            <i class="bi bi-x-lg"></i>
+                            <span class="d-none d-md-inline">Nu</span>
+                        </label>
+        
+                        <input type="radio" class="btn-check" name="gr_zahar" id="zahar_toate" value="toate" autocomplete="off" checked>
+                        <label class="btn btn-outline-secondary" for="zahar_toate">
+                            <i class="bi bi-infinity"></i>
+                            <span class="d-none d-md-inline">Toate</span>
+                        </label>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4">
+                    <label class="form-label">Descriere conține:</label>
+                    <div class="form-floating">
+                        <textarea id="inp-descriere" class="form-control" placeholder=" "></textarea>
+                        <label for="inp-descriere">Cuvinte cheie</label>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4">
+                    <label for="inp-culoare" class="form-label">Culoare:</label>
+                    <select id="inp-culoare" class="form-select">
+                        <option value="toate">Toate</option>
+                        <% for (let c of optiuni.culori) { %>
+                            <option value="<%= c %>"><%= c %></option>
+                        <% } %>
+                    </select>
+                </div>
+        
+                <div class="col-12">
+                    <div class="d-flex flex-wrap gap-2 justify-content-center">
+                        <button id="filtrare" class="btn btn-primary">
+                            <i class="bi bi-funnel"></i>
+                            <span class="d-none d-md-inline">Filtrează</span>
+                        </button>
+                        <button id="resetare" class="btn btn-outline-danger">
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                            <span class="d-none d-md-inline">Resetează</span>
+                        </button>
+                        <button id="sortCrescNume" class="btn btn-secondary">
+                            <i class="bi bi-sort-up"></i>
+                            <span class="d-none d-md-inline">Sortează crescător</span>
+                        </button>
+                        <button id="sortDescrescNume" class="btn btn-secondary">
+                            <i class="bi bi-sort-down"></i>
+                            <span class="d-none d-md-inline">Sortează descrescător</span>
+                        </button>
+                        <button id="calculeazaSuma" class="btn btn-info">
+                            <i class="bi bi-calculator"></i>
+                            <span class="d-none d-md-inline">Calculează suma</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="produse">
+            <div class="grid-produse">
+                <% for (let b of produse) { %>
+                    <article class="produs <%= b.categorie.replace(/\s/g, '') %>" id="elem_<%= b.id %>">
+                        <h3><a href="/bautura/<%= b.id %>"><%= b.nume %></a></h3>
+                        <div class="continut-produs">
+                            <table>
+                                <tr>
+                                    <td>Preț</td>
+                                    <td class="val-pret"><%= b.pret %> lei</td>
+                                </tr>
+                                <tr>
+                                    <td>Culoare</td>
+                                    <td><%= b.culoare %></td>
+                                </tr>
+                                <tr>
+                                    <td>Utilizări</td>
+                                    <td><%= b.utilizari.replace(/[{}"]/g, "").split(",").join(", ") %></td>
+                                </tr>
+                                <tr>
+                                    <td>Data lansare</td>
+                                        <td>
+                                            <%
+                                            const data = new Date(b.data_lansare);
+                                            const luni = ["ianuarie", "februarie", "martie", "aprilie", "mai", "iunie",
+                                                        "iulie", "august", "septembrie", "octombrie", "noiembrie", "decembrie"];
+                                            const zile = ["Duminică", "Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă"];
+                                            const zi = data.getDate();
+                                            const luna = luni[data.getMonth()];
+                                            const an = data.getFullYear();
+                                            const ziSapt = zile[data.getDay()];
+                                        %>
+                                        <time datetime="<%= data.toISOString().split('T')[0] %>">
+                                            <%= zi %> <%= luna.charAt(0).toUpperCase() + luna.slice(1) %> <%= an %> (<%= ziSapt %>)
+                                        </time>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Conține zahăr</td>
+                                    <td><%= b.contine_zahar ? "Da" : "Nu" %></td>
+                                </tr>
+                            </table>
+                    
+                            <figure class="miniatura">
+                                <img src="/<%= b.imagine %>" alt="imagine <%= b.nume %>">
+                            </figure>
+                        </div>
+                
+                        <p class="cantitate">Cantitate: <span class="val-cantitate"><%= b.cantitate %></span> ml</p>
+                        <p class="val-aroma" style="display: none"><%= b.aroma %></p>
+
+                        <p class="descriere"><%= b.descriere %></p>
+                        <p class="categorie-produs">Categorie: <%= b.categorie.replace("_", " ") %></p>
+                    </article>
+                <% } %>
+            </div>
+        </section>
+    </main>
+
+    <%- include("../fragmente/footer") %>
+</body>
+</html>

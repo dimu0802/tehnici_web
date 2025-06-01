@@ -1,29 +1,30 @@
 #grid-galerie {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: auto;
-    counter-reset: figura-counter;
-    gap: 0.5em;
+    display: grid; /*activeaza sistem css grid*/
+    grid-template-columns: repeat(4, 1fr); /*creeaza 4 coloae egale*/
+    grid-auto-rows: auto; /*inaltimea randurilor se ajusteaza in fct de continut*/
+    counter-reset: figura-counter; /*reseteaza contor pt literele din figcaption */
+    gap: 0.5em; /* spatiu intre imag*/
 }
 
 #grid-galerie figure {
-    position: relative;
-    margin:0;
-    overflow: hidden;
+    position: relative; /*necesar pt pozitionari interne, de ex hover*/
+    margin:0; /*elimina spatiera implicita a tagului figure*/
+    overflow: hidden; /*ascunde orice parte a imag care iese din figure*/
     /* tranzitie figure */
 }
 
 #grid-galerie figcaption::before {
-    counter-increment: figura-counter;
-    content: counter(figura-counter, lower-alpha) ". ";
+    counter-increment: figura-counter; /*incrementeaza contor (de fiec data cand apare figcaption)*/
+    content: counter(figura-counter, lower-alpha) ". "; /*afiseaza*/
 }
 
 #grid-galerie picture img {
     width: 100%;
     height: auto;
-    display: block;
+    display: block; /*elimina spatiu de sub imag*/
 }
 
+/*aplica tranz de 1.25 secinde cand imag e scalata la hover*/
 #grid-galerie figure picture img {
     transition: transform 1.25s;
     display: block;
@@ -43,6 +44,7 @@
     transform: translateY(-15%) scale(1.3);
 }
 
+/*schimbare de culoare la figcaption*/
 #grid-galerie figure:hover figcaption {
     background-color: black;  
     color: orange;                 

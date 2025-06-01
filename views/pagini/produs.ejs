@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title><%= prod.nume %> - Cofetăria Dulcelind</title>
+    <meta name="description" content="Detalii despre băutura <%= prod.nume %> din colecția noastră.">
+    <meta name="keywords" content="băutură, <%= prod.nume %>, dulcelind, sirop, aroma, cafea">
+
+    <%- include("../fragmente/head") %>
+    <link href="/resurse/css/produs.css" rel="stylesheet" />
+</head>
+
+<body>
+    <%- include("../fragmente/header") %>
+
+    <main>
+        <section>
+            <h2><%= prod.nume %></h2>
+            <article id="art-produs">
+                <p><strong>Descriere:</strong> <span class="descriere"><%= prod.descriere %></span></p>
+                <p><strong>Categorie:</strong> <span class="categorie"><%= prod.categorie %></span></p>
+                <p><strong>Aromă:</strong> <span class="aroma"><%= prod.aroma %></span></p>
+                <p><strong>Preț:</strong> <span class="pret"><%= prod.pret %> lei</span></p>
+                <p><strong>Cantitate:</strong> <span class="cantitate"><%= prod.cantitate %> ml</span></p>
+                <p><strong>Data lansării:</strong> <span class="data"><%= prod.data_lansare.toLocaleDateString("ro-RO") %></span></p>
+                <p><strong>Culoare:</strong> <span class="culoare"><%= prod.culoare %></span></p>
+                <p><strong>Utilizări:</strong> 
+                    <span class="utilizari">
+                        <%= prod.utilizari.replace(/[{}"]/g, "").split(",").join(", ") %>
+                    </span>
+                </p>
+                <p><strong>Conține zahăr:</strong> <span class="zahar"><%= prod.contine_zahar ? "Da" : "Nu" %></span></p>
+
+                <figure class="imag-produs">
+                    <img src="/<%= prod.imagine %>" alt="Imagine <%= prod.nume %>">
+                </figure>
+            </article>
+        </section>
+    </main>
+
+    <%- include("../fragmente/footer") %>
+</body>
+</html>

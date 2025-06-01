@@ -1,6 +1,12 @@
 :root {
     --culoare-selectie-fundal: #f2c94c;
-  --culoare-selectie-text: #2f2f2f;     
+  --culoare-selectie-text: #2f2f2f;   
+  :root {
+    --cl-light-t: #f8f8f8;
+    --cl-marcare: #ffe4e1;
+    --culoare-maro: #3E2723;
+    --culoare-titlu: #222;
+}  
 }
 
 html{
@@ -92,7 +98,6 @@ h3{
         "produse limonada-vs-cafea limonada-vs-cafea limonada-vs-cafea"
         "produse sirop_limonada sirop_limonada sirop_limonada"
         "baze produse_cafea produse_cafea ustensile"
-        "hr hr hr hr"
         "duotone-pic duotone-pic duotone-pic duotone-pic"
         "retete retete retete retete"
         "ghid promo promo despre"
@@ -102,9 +107,6 @@ h3{
         "program-customer-service ajutor ajutor ajutor";
 }
 
-#stilizare-hr{
-    grid-area: hr;
-}
 
 #grid-pagina > *{
     background-color: var(--culoare-fundal);
@@ -405,42 +407,43 @@ video{
     color: orange;
   }
   
+  /*task stilizare linkuri etapa 4*/
   main a {
-    position: relative;
-    display: inline-block;
+    position: relative; 
+    display: inline-block; /* face ca linkul sa devina bloc care ocupa cat are nevoie */
     background-image: radial-gradient(circle, orange 0%, orange 40%, transparent 80%, transparent 100%);
-    background-repeat: no-repeat;
-    background-position: center;
+    background-repeat: no-repeat; /*pata a[are o sg data*/
+    background-position: center; /*apare pe mijloc link*/
     background-size: 0%;
     transition: background-size 0.5s ease;
   }
     
   main a:hover {
-    background-size: 100%;
+    background-size: 100%; /* la hover, creste dim fundalului la 100%*/
   }
 
   
 /* poza duotone */
   .duotone-image {
-    position: relative;
+    position: relative; /*permite plasarea ::before si ::after absolut in rap cu acest fiv*/
     width: 600px;
     height: 400px;
-    background-image: url(../img/duotone-pic.jpg);
-    background-size: cover;
-    background-position: center;
-    overflow: hidden;
-    cursor: pointer;
+    background-image: url(../img/duotone-pic.jpg); 
+    background-size: cover; /*imag acopera complet div*/
+    background-position: center; 
+    overflow: hidden; /*ascunde ce iese din div*/
+    cursor: pointer; /*cursor se trans in mana*/
   
     &::before,
     &::after {
-      content: '';
-      position: absolute;
+      content: ''; /* face ca elem sa existe*/
+      position: absolute; /*vor fi pozitionate peste imagine*/
       top: 0;
       width: 100%;
       height: 100%;
       transition: transform 1.2s ease-in-out;
-      mix-blend-mode: screen;
-      pointer-events: none;
+      mix-blend-mode: screen; /*culorile se amesteca cu imag pt a crea efect duotone*/
+      pointer-events: none; /*nu interfereaza cu mouse*/
     }
   
     &::before {
@@ -514,38 +517,4 @@ video{
 
 
 
-  #stilizare-hr {
-    position: relative;
-    border: none;
-    height: 2px; /* grosimea liniei */
-    background-color: #4A90E2; /* poți schimba culoarea cu una din schema aleasă */
-    margin: 40px auto;
-    width: 40%;
-    border-radius: 0;
-    z-index: 5;
-  }
-  
-  /* Triunghiul din stânga */
-  #stilizare-hr::before,
-  #stilizare-hr::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-  }
-  
-  /* Stânga */
-  #stilizare-hr::before {
-    left: -20px;
-    border-right: 20px solid #4A90E2;
-  }
-  
-  /* Dreapta */
-  #stilizare-hr::after {
-    right: -20px;
-    border-left: 20px solid #4A90E2;
-  }
+

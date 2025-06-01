@@ -24,10 +24,11 @@
   "homepage": "https://github.com/dimu0802/tehnici_web#readme",
   "dependencies": {
     "bootstrap": "^5.3.6",
+    "dotenv": "^16.5.0",
     "ejs": "^3.1.10",
-    "express": "^5.1.0",
+    "express": "^4.21.2",
+    "pg": "^8.16.0",
     "sass": "^1.87.0",
-    "sharo": "^0.0.7",
     "sharp": "^0.34.1"
   }
 }

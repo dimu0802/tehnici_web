@@ -1,11 +1,45 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const path = require('path');
 const fs = require('fs');
 const sharp = require('sharp');
 const sass = require('sass');
+const pg = require('pg');
 
-const vect_foldere = ['temp', 'backup','temp1'];
+const Client=pg.Client;
+
+client=new Client({
+    database:"proiect",
+    user:"dimu",
+    password: process.env.DB_PASSWORD,
+    host:"localhost",
+    port:5432
+})
+
+client.connect()
+client.query("select * from bauturi", function(err, rezultat ){
+    console.log(err)    
+    console.log("rezultat query: ", rezultat)
+})
+client.query("select * from unnest(enum_range(null::categorie_bautura))", function(err, rezultat ){
+    console.log(err)    
+    console.log(rezultat)
+})
+
+client.query("SELECT * FROM unnest(enum_range(NULL::aroma_bautura))", function(err, rezultat) {
+    console.log(err);    
+    console.log(rezultat);
+});
+
+client.query("SELECT * FROM unnest(enum_range(NULL::culoare_lichid))", function(err, rezultat) {
+    console.log(err);    
+    console.log(rezultat);
+});
+
+
+const vect_foldere = ['temp', 'backup'];
 // const baseDir = __dirname;
 
 for(let folder of vect_foldere){
@@ -23,13 +57,19 @@ const obGlobal = {
     folderBackup: path.join(__dirname, "backup")
 };
 
+//afisare dirname, filename, process.cwd()-cerinta etapa 4
+console.log("__dirname:", __dirname);
+console.log("__filename:", __filename);
+console.log("process.cwd():", process.cwd());
+
 function compileazaScss(caleScss, caleCss){
     if(!caleCss){
         let numeFisExt=path.basename(caleScss);
-        let numeFis=numeFisExt.split(".")[0] 
+        let numeFis=numeFisExt.split(".")[0] //elimina extensia .scss
         caleCss=numeFis+".css";
     }    
-    if (!path.isAbsolute(caleScss))
+    //transforma din cai relative in absolute
+    if (!path.isAbsolute(caleScss)) 
         caleScss=path.join(obGlobal.folderScss,caleScss )
     if (!path.isAbsolute(caleCss))
         caleCss=path.join(obGlobal.folderCss,caleCss )
@@ -39,8 +79,8 @@ function compileazaScss(caleScss, caleCss){
         fs.mkdirSync(caleBackup,{recursive:true})
     }
 
-    let rez = sass.compile(caleScss, { sourceMap: true });
-    let cssNou = rez.css.toString();
+    let rez = sass.compile(caleScss, { sourceMap: true }); //compileaza fisierul .scss
+    let cssNou = rez.css.toString(); //obtine codul css final
     let cssVechi = "";
     let existaCssVechi = fs.existsSync(caleCss);
     if (existaCssVechi) {
@@ -51,7 +91,7 @@ function compileazaScss(caleScss, caleCss){
         if (existaCssVechi) {
             let numeFisCss = path.basename(caleCss, ".css");
             let timestamp = Date.now();
-            let numeFisCssBackup = n    
+            let numeFisCssBackup = numeFisCss + "_" + timestamp + ".css"; 
             fs.copyFileSync(caleCss, path.join(caleBackup, numeFisCssBackup));
         }
         fs.writeFileSync(caleCss, cssNou);
@@ -60,15 +100,15 @@ function compileazaScss(caleScss, caleCss){
     }
 }
 
-vFisiere=fs.readdirSync(obGlobal.folderScss);
-for( let numeFis of vFisiere ){
+vFisiere=fs.readdirSync(obGlobal.folderScss); //citeste toate fisiere din scss
+for( let numeFis of vFisiere ){  //parcurge toate fisierele din folder. daca extensia e .scss, o complieaza in css cu fct
     if (path.extname(numeFis)==".scss"){
         compileazaScss(numeFis);
     }
 }
 
-fs.watch(obGlobal.folderScss, function(eveniment, numeFis){
-    console.log(eveniment, numeFis);
+fs.watch(obGlobal.folderScss, function(eveniment, numeFis){ //porneste un watcher pe folderul scss
+    console.log(eveniment, numeFis); //afiseaza ce s a intamplat
     if (eveniment=="change" || eveniment=="rename"){
         let caleCompleta=path.join(obGlobal.folderScss, numeFis);
         if (fs.existsSync(caleCompleta)){
@@ -77,11 +117,11 @@ fs.watch(obGlobal.folderScss, function(eveniment, numeFis){
     }
 })
 
-function initErori() {
-    let continut = fs.readFileSync(path.join(__dirname, "resurse/json/erori.json")).toString("utf-8");
-    obGlobal.obErori = JSON.parse(continut);
+function initErori() { //functie care initializeaza erorile
+    let continut = fs.readFileSync(path.join(__dirname, "resurse/json/erori.json")).toString("utf-8"); //construieste calea completa catre erori.json, citeste fisierul json sincron
+    obGlobal.obErori = JSON.parse(continut); //stocheaza in obglobal.oberori ceea ce json.parse() a transformat din string json in obiect js
 
-    obGlobal.obErori.eroare_default.imagine = path.join(obGlobal.obErori.cale_baza, obGlobal.obErori.eroare_default.imagine);
+    obGlobal.obErori.eroare_default.imagine = path.join(obGlobal.obErori.cale_baza, obGlobal.obErori.eroare_default.imagine); //creeaza cai complete pt pozele de erori
     for (let eroare of obGlobal.obErori.info_erori) {
         eroare.imagine = path.join(obGlobal.obErori.cale_baza, eroare.imagine);
     }
@@ -130,7 +170,7 @@ initImagini();
 
 function afisareEroare(res, identificator, titlu, text, imagine) {
     let eroare = obGlobal.obErori.info_erori.find(function (elem) {
-        return elem.identificator == identificator;
+        return elem.identificator == identificator; //cauta in vector info_erori o eroare care are identificatorul dat
     });
 
     let titluCustom, textCustom, imagineCustom;
@@ -138,32 +178,25 @@ function afisareEroare(res, identificator, titlu, text, imagine) {
     if (eroare) {
         if (eroare.status)
             res.status(identificator);
-        titluCustom = titlu || eroare.titlu;
+        titluCustom = titlu || eroare.titlu; //daca a primit titlu ca argument, il foloseste p ala, daca nu, foloseste titlu din json
         textCustom = text || eroare.text;
         imagineCustom = imagine || eroare.imagine;
-    } else {
+    } else { //daca nu exista valori pt identificator pt eroare, se folosesc val din eroare_default
         let err = obGlobal.obErori.eroare_default;
         titluCustom = titlu || err.titlu;
         textCustom = text || err.text;
         imagineCustom = imagine || err.imagine;
     }
 
-    res.render("pagini/eroare", {
+    res.render("pagini/eroare", { //randeaza eroare.ejs
         titlu: titluCustom,
         text: textCustom,
         imagine: imagineCustom
     });
 }
 
-app.get(/^\/resurse\/[a-zA-Z0-9_\/]*$/, function (req, res) {
-    afisareEroare(res, 403);
-});
 
-app.get("/*.ejs", function (req, res) {
-    afisareEroare(res, 400);
-});
-
-app.use('/resurse', express.static(path.join(__dirname, 'resurse')));
+app.use('/resurse', express.static(path.join(__dirname, 'resurse'))); //toate folderele sunt accesibile din browser la adresa /resurse/
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 app.use('/favicon.ico', express.static(path.join(__dirname, 'resurse/ico/favicon.ico')));
 
@@ -171,19 +204,84 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 
-app.get(['/', '/index', '/home'], (req, res) => {
-    res.render('pagini/index', { ip_utilizator: req.ip, imagini: obGlobal.obImagini.imagini });
+app.get(['/', '/index', '/home'], (req, res) => { //pentru acces la localhost:8080/index etc
+    res.render('pagini/index', { ip_utilizator: req.ip, imagini: obGlobal.obImagini.imagini }); //req.ip-variabila oferita automat de express; iq_utilizator=req.ip -> trimite ip in index.ejs
 });
 
 app.get('/barman', (req, res) => {
     res.render('pagini/barman');
 });
 
-app.get('/galerie', (req, res) => {
+app.get('/galerie', (req, res) => { 
     res.render('pagini/galerie', { imagini: obGlobal.obImagini.imagini });
 });
 
-app.use("/*", function (req, res) {
+app.get("/*.ejs", function (req, res) {
+    afisareEroare(res, 400);
+});
+
+app.get('/bauturi', function(req, res) {
+    const selectedCategorie = req.query.categorie;
+    let conditieQuery = "";
+    const parametri = [];
+
+    if (selectedCategorie) {
+        conditieQuery = " WHERE categorie = $1";
+        parametri.push(selectedCategorie);
+    }
+
+    const queryProduse = "SELECT * FROM bauturi" + conditieQuery;
+    const queryCategorii = "SELECT unnest(enum_range(NULL::categorie_bautura)) AS categorie";
+    const queryArome = "SELECT unnest(enum_range(NULL::aroma_bautura)) AS aroma";
+    const queryCulori = "SELECT unnest(enum_range(NULL::culoare_lichid)) AS culoare";
+
+    client.query(queryProduse, parametri, function(err, rezProduse) {
+        if (err) return afisareEroare(res, 500);
+
+        client.query(queryCategorii, function(err, rezCategorii) {
+            if (err) return afisareEroare(res, 500);
+
+            client.query(queryArome, function(err, rezArome) {
+                if (err) return afisareEroare(res, 500);
+
+                client.query(queryCulori, function(err, rezCulori) {
+                    if (err) return afisareEroare(res, 500);
+
+                    res.render("pagini/produse", {
+                        produse: rezProduse.rows,
+                        optiuni: {
+                            categorii: rezCategorii.rows.map(c => c.categorie),
+                            arome: rezArome.rows.map(a => a.aroma),
+                            culori: rezCulori.rows.map(c => c.culoare)
+                        },
+                        categorie_selectata: selectedCategorie || "toate"
+                    });
+                });
+            });
+        });
+    });
+});
+
+
+app.get("/bautura/:id", function(req, res) {
+    const idProdus = req.params.id;
+    const query = "SELECT * FROM bauturi WHERE id = $1";
+
+    client.query(query, [idProdus], function(err, rez) {
+        if (err || rez.rows.length === 0) {
+            console.log("Eroare la căutarea produsului:", err);
+            return afisareEroare(res, 404, "Produsul nu a fost găsit");
+        }
+
+        res.render("pagini/produs", { prod: rez.rows[0] });
+    });
+});
+
+app.get(/^\/resurse\/[a-zA-Z0-9_\/]*$/, function (req, res) {
+    afisareEroare(res, 403);
+});
+
+app.get("/*", function (req, res) { //app.get general pentru calea /, trateaza orice cerere de forma/pagina
     try {
         res.render("pagini" + req.originalUrl, function (err, rezultatRandare) {
             if (err) {

@@ -1,0 +1,66 @@
+
+h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+#art-produs {
+    margin: 2rem auto;
+    padding: 2rem;
+    width: 90%;
+    max-width: 1000px;
+    background-color: #8c5c3a;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    color: #fff;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 1.1rem;
+}
+
+#art-produs p {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#art-produs p > strong {
+    width: 45%;
+    font-weight: bold;
+}
+
+#art-produs p > span {
+    width: 50%;
+    font-weight: normal;
+}
+
+.imag-produs {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.imag-produs img {
+    width: 250px;
+    height: auto;
+    max-height: 400px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+@media screen and (max-width: 768px) {
+    #art-produs {
+        padding: 1rem;
+    }
+
+    #art-produs p > strong, 
+    #art-produs p > span {
+        width: 100%;
+    }
+
+    .imag-produs img {
+        width: 70%;
+    }
+}
