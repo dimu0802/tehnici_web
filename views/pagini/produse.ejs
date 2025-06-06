@@ -14,38 +14,46 @@
         <h1>Băuturi disponibile</h1>
     
         <section id="filtrare-produse" class="container mb-4">
-            <div class="row g-3">
-                <div class="col-md-6 col-lg-4">
+            <div class="row g-3"> <!--definesre un rand intr un sistem de grila bootstrap-->
+                <div class="col-md-6 col-lg-4"> <!--ocupa 6 linii din 12 pe ecran mai mic, 4 linii din 12 cand e ecran mai mare -->
                     <label class="form-label">Nume:</label>
-                    <input type="text" id="inp-nume" class="form-control">
+                    <input type="text" 
+                           id="inp-nume" 
+                           class="form-control"
+                           placeholder="<% if(produse.length > 0) { %>ex: <%= produse[0].nume %><% } %>"> <!--placeholder care genereaza dinamic o sugestie cu primul nume din lista-->
                 </div>
-        
-                <div class="col-md-6 col-lg-4">
+
+                <div class="col-md-6 col-lg-4"> 
                     <label class="form-label">Cantitate (ml):</label>
                     <div class="d-flex align-items-center gap-2">
-                        <span id="min-cant" class="text-nowrap">0</span>
+                        <span id="min-cant" class="text-nowrap"><%= statistici.cantitate_min %></span>
                         <input type="range" 
                                id="inp-cantitate" 
-                               min="0" 
-                               max="2000" 
-                               value="0" 
-                               step="100" 
+                               min="<%= statistici.cantitate_min %>" 
+                               max="<%= statistici.cantitate_max %>" 
+                               value="<%= statistici.cantitate_min %>" 
+                               step="<%= Math.ceil((statistici.cantitate_max - statistici.cantitate_min) / 20) %>" 
                                class="form-range flex-grow-1 my-2">
-                        <span id="max-cant" class="text-nowrap">2000</span>
-                        <span id="infoCantitate" class="badge bg-primary ms-2">(0)</span>
+                        <span id="max-cant" class="text-nowrap"><%= statistici.cantitate_max %></span>
+                        <span id="infoCantitate" class="badge bg-primary ms-2">(<%= statistici.cantitate_min %>)</span>
                     </div>
                 </div>
         
+
                 <div class="col-md-6 col-lg-4">
                     <label class="form-label">Aromă:</label>
                     <datalist id="lista-arome">
                         <% for (let a of optiuni.arome) { %>
                             <option value="<%= a %>">
                         <% } %>
-                    </datalist>
-                    <input list="lista-arome" id="inp-aroma" class="form-control">
+                    </datalist> <!--extrase din baza de date-->
+                    <input list="lista-arome" 
+                           id="inp-aroma" 
+                           class="form-control"
+                           placeholder="<% if(optiuni.arome.length > 0) { %>ex: <%= optiuni.arome[0] %><% } %>"> <!--am generat options automat-->
                 </div>
 
+                <!-- task stilizare inputs btn-check, outline etc-->
                 <div class="col-md-6 col-lg-4">
                     <label class="form-label">Conține zahăr:</label>
                     <div class="btn-group w-100" role="group" aria-label="Zahăr">
@@ -68,12 +76,16 @@
                         </label>
                     </div>
                 </div>
-        
+
                 <div class="col-md-6 col-lg-4">
                     <label class="form-label">Descriere conține:</label>
-                    <div class="form-floating">
-                        <textarea id="inp-descriere" class="form-control" placeholder=" "></textarea>
-                        <label for="inp-descriere">Cuvinte cheie</label>
+                    <div class="form-floating"> <!--eticheta pluteste peste input; placeholder: necesar chiar daca e gol-->
+                        <textarea id="inp-descriere" 
+                                  class="form-control" 
+                                  placeholder=" "
+                                  minlength="5"
+                                  maxlength="200"></textarea>
+                        <label for="inp-descriere">Cuvinte cheie (min. 5 caractere)</label>
                     </div>
                 </div>
         
@@ -81,23 +93,54 @@
                     <label for="inp-culoare" class="form-label">Culoare:</label>
                     <select id="inp-culoare" class="form-select">
                         <option value="toate">Toate</option>
-                        <% for (let c of optiuni.culori) { %>
-                            <option value="<%= c %>"><%= c %></option>
+                        <% for (let c of optiuni.culori) { %> <!--generat dinamic din baza de date-->
+                            <option value="<%= c %>"><%= c.charAt(0).toUpperCase() + c.slice(1) %></option>
                         <% } %>
                     </select>
                 </div>
         
-                <div class="col-12">
-                    <div class="d-flex flex-wrap gap-2 justify-content-center">
-                        <button id="filtrare" class="btn btn-primary">
+                <div class="col-md-6 col-lg-4">
+                    <label class="form-label">Utilizări:</label>
+                    <div class="d-flex flex-wrap gap-2">
+                        <% for (let utilizare of optiuni.utilizari) { %>
+                            <div class="form-check"> <!--extrase dintr o coloana de tip array-->
+                                <input class="form-check-input chk-util"                                        type="checkbox" 
+                                       value="<%= utilizare %>" 
+                                       id="util-<%= utilizare.replace(/\s+/g, '-') %>">
+                                <label class="form-check-label" for="util-<%= utilizare.replace(/\s+/g, '-') %>">
+                                    <%= utilizare.charAt(0).toUpperCase() + utilizare.slice(1) %>
+                                </label>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4">
+                    <label for="inp-categorii" class="form-label">Categorii</label>
+                    <select id="inp-categorii" 
+                            class="form-select" 
+                            multiple 
+                            size="<%= Math.min(optiuni.categorii.length, 4) %>">
+                        <% for (let categorie of optiuni.categorii) { %> <!--extrase dintr o coloana de tip array-->
+                            <option value="<%= categorie %>">
+                                <%= categorie.replace(/_/g, ' ').split(' ').map(word => 
+                                    word.charAt(0).toUpperCase() + word.slice(1)).join(' ') %>
+                            </option>
+                        <% } %>
+                    </select>
+                </div>
+    
+                <div class="col-12"> <!-- acest div ocupa toata latimea pe orice ecran -->
+                    <div class="d-flex flex-wrap gap-2 justify-content-center"> <!--il face container flexibil -->
+                        <button id="filtrare" class="btn btn-primary"> <!--scheme de culori din bootstrap: primary: albastru-->
                             <i class="bi bi-funnel"></i>
-                            <span class="d-none d-md-inline">Filtrează</span>
+                            <span class="d-none d-md-inline">Filtrează</span> <!--d-md-inline: il face vizibil pe ecranele medii si mai mari-->
                         </button>
-                        <button id="resetare" class="btn btn-outline-danger">
+                        <button id="resetare" class="btn btn-outline-danger"> <!--rosu doar cu chenar-->
                             <i class="bi bi-arrow-counterclockwise"></i>
                             <span class="d-none d-md-inline">Resetează</span>
                         </button>
-                        <button id="sortCrescNume" class="btn btn-secondary">
+                        <button id="sortCrescNume" class="btn btn-secondary"> <!--gri inchis-->
                             <i class="bi bi-sort-up"></i>
                             <span class="d-none d-md-inline">Sortează crescător</span>
                         </button>
@@ -105,7 +148,7 @@
                             <i class="bi bi-sort-down"></i>
                             <span class="d-none d-md-inline">Sortează descrescător</span>
                         </button>
-                        <button id="calculeazaSuma" class="btn btn-info">
+                        <button id="calculeazaSuma" class="btn btn-info"> <!--albastru deschis-->
                             <i class="bi bi-calculator"></i>
                             <span class="d-none d-md-inline">Calculează suma</span>
                         </button>
@@ -117,13 +160,39 @@
         <section id="produse">
             <div class="grid-produse">
                 <% for (let b of produse) { %>
-                    <article class="produs <%= b.categorie.replace(/\s/g, '') %>" id="elem_<%= b.id %>">
+                    <article class="produs <%= b.categorie.replace(/\s/g, '') %>" id="elem_<%= b.id %>" data-produs-id="<%= b.id %>">
+                        <!-- butoane de control -->
+                        <div class="control-buttons" style="position: absolute; top: 10px; right: 10px; display: flex; gap: 5px;">
+                            <button class="btn btn-sm btn-outline-success btn-pastrat" 
+                                    data-produs-id="<%= b.id %>"
+                                    title="Păstrează produsul (nu va fi ascuns la filtrare)">
+                                <i class="bi bi-pin-fill"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-warning btn-ascuns-temp" 
+                                    data-produs-id="<%= b.id %>"
+                                    title="Ascunde temporar produsul">
+                                <i class="bi bi-eye-slash"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger btn-sters-sesiune" 
+                                    data-produs-id="<%= b.id %>"
+                                    title="Șterge produsul pentru această sesiune">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                        
                         <h3><a href="/bautura/<%= b.id %>"><%= b.nume %></a></h3>
+                        <div class="cel-mai-ieftin" id="ieftin-<%= b.id %>" style="display: none;">
+                            <div class="badge bg-success fs-6 mb-2">
+                                <i class="bi bi-star-fill"></i>
+                                CEL MAI IEFTIN DIN CATEGORIA <%= b.categorie.replace("_", " ").toUpperCase() %>!
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                        </div>
                         <div class="continut-produs">
                             <table>
                                 <tr>
                                     <td>Preț</td>
-                                    <td class="val-pret"><%= b.pret %> lei</td>
+                                    <td class="val-pret"><%= b.pret %></td>
                                 </tr>
                                 <tr>
                                     <td>Culoare</td>
@@ -131,7 +200,7 @@
                                 </tr>
                                 <tr>
                                     <td>Utilizări</td>
-                                    <td><%= b.utilizari.replace(/[{}"]/g, "").split(",").join(", ") %></td>
+                                    <td><%= b.utilizari.replace(/[{}"]/g, "").split(",").join(", ") %></td>  <!-- scoate ghilimele si acolade, sparge string ul obtinut in elemente separate intr un array, si le afiseaza cu virgula intre ele -->
                                 </tr>
                                 <tr>
                                     <td>Data lansare</td>

@@ -1,5 +1,14 @@
 <header>
     <h1 id="site-title">Bar Essentials</h1>
+
+    <!--buton switch pt theme, dreapta sus-->
+    <div class="form-check form-switch theme-toggle-container">
+        <input class="form-check-input" type="checkbox" role="switch" id="theme-toggle">
+        <label class="form-check-label" for="theme-toggle">
+            <i id="theme-icon-sun" class="fas fa-sun"></i>
+            <i id="theme-icon-moon" class="fas fa-moon d-none"></i> </label>
+    </div>
+
     <!-- <input type="checkbox" id="toggle-meniu" /> -->
     <label for="toggle-meniu" class="hamburger">
         <span></span>
@@ -24,11 +33,11 @@
             <li><a href="/index#ajutor">Ajutor & Politici</a></li>
             <li><div>Bauturi</div>
                 <ul>
-                    <li><a href="/bauturi">Toate</a></li>
-                    <li><a href="/bauturi?categorie=sirop_cafea">Siropuri pentru Cafea</a></li>
-                    <li><a href="/bauturi?categorie=sirop_limonada">Siropuri pentru Limonada</a></li>
-                    <li><a href="/bauturi?categorie=topping">Topping-uri</a></li>
-                    <li><a href="/bauturi?categorie=piure">Piure-uri de fructe</a></li>
+                    <li><a href="/bauturi" onclick="salveazaCategorie('toate')">Toate</a></li>
+                    <li><a href="/bauturi?categorie=sirop_cafea" onclick="salveazaCategorie('sirop_cafea')">Siropuri pentru Cafea</a></li>
+                    <li><a href="/bauturi?categorie=sirop_limonada" onclick="salveazaCategorie('sirop_limonada')">Siropuri pentru Limonada</a></li>
+                    <li><a href="/bauturi?categorie=topping" onclick="salveazaCategorie('topping')">Topping-uri</a></li>
+                    <li><a href="/bauturi?categorie=piure" onclick="salveazaCategorie('piure')">Piure-uri de fructe</a></li>
                 </ul>
             </li>
             

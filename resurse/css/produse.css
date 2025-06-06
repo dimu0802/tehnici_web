@@ -72,3 +72,47 @@ article.produs h3 {
     display: block;
     margin-bottom: 1em;
 } */
+
+
+/* Stiluri pentru butoanele de control */
+.produs {
+    position: relative;
+}
+
+.control-buttons {
+    z-index: 10;
+}
+
+.control-buttons .btn {
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.control-buttons .btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Stiluri pentru starea activă a butonului de păstrat */
+.btn-pastrat.activ {
+    background-color: #198754;
+    border-color: #198754;
+    color: white;
+}
+
+/* Stiluri pentru produsul păstrat */
+.produs.pastrat {
+    border: 2px solid #198754;
+    box-shadow: 0 0 10px rgba(25, 135, 84, 0.3);
+}
+
+/* Stiluri pentru produsul ascuns temporar */
+.produs.ascuns-temp {
+    opacity: 0.5;
+    filter: grayscale(70%);
+}
+
+/* Stiluri pentru produsele șterse din sesiune */
+.produs[data-sters-sesiune="true"] {
+    display: none !important;
+}

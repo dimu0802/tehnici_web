@@ -1,17 +1,36 @@
 :root {
     --culoare-selectie-fundal: #f2c94c;
-  --culoare-selectie-text: #2f2f2f;   
-  :root {
+    --culoare-selectie-text: #2f2f2f;
+    
+    /* Variabile pentru tema light (default) */
     --cl-light-t: #f8f8f8;
     --cl-marcare: #ffe4e1;
     --culoare-maro: #3E2723;
     --culoare-titlu: #222;
-}  
+
+    --spatiere-pagina: 80px;
+    --culoare-fundal: #EDE0D4; /* Light background */
+    --culoare-text: #5D4037;   /* Darker text for light theme */
+    --culoare-accent: #3E2723;
+    --culoare-highlight: #D4A373;
+    --culoare-border: #A67B5B;
 }
 
-html{
-    font-size: 18px;
-    --padding-text: 10px;
+/* Stiluri pentru tema dark */
+body.dark-theme {
+    --culoare-selectie-fundal: #5E35B1; /* Exemplu: o culoare diferită pentru selecție în dark theme */
+    --culoare-selectie-text: #FFFFFF;
+
+    --cl-light-t: #222; /* Poate fi ajustat pentru dark theme */
+    --cl-marcare: #333; /* Poate fi ajustat pentru dark theme */
+    --culoare-maro: #BDBDBD; /* Ajustat pentru contrast */
+    --culoare-titlu: #f8f8f8; /* Luminează titlurile */
+
+    --culoare-fundal: #212121; /* Dark background */
+    --culoare-text: #E0E0E0;   /* Lighter text for dark theme */
+    --culoare-accent: #616161;
+    --culoare-highlight: #424242;
+    --culoare-border: #757575;
 }
 
 p, h1, h2, h3, h4, h5, h6{
@@ -491,7 +510,7 @@ video{
   
   .banner-cafea p {
     position: absolute;
-    white-space: nowrap;
+    white-space: nowrap; /**/
     animation: plimbare-text 12s linear infinite;
     font-weight: bold;
     color: #7b3f00;
@@ -515,6 +534,26 @@ video{
     color: var(--culoare-selectie-text);
   }
 
+  .theme-toggle-container {
+    position: absolute; /* Poziționează-l absolut față de header */
+    top: 20px; /* Ajustează după nevoie */
+    right: 20px; /* Ajustează după nevoie */
+    z-index: 100; /* Asigură că este deasupra altor elemente */
+    display: flex; /* Folosim flexbox pentru a alinia iconițele cu switch-ul */
+    align-items: center; /* Centrează vertical */
+    gap: 10px; /* Spațiu între iconițe și switch */
+}
 
+/* Ajustează dimensiunea switch-ului Bootstrap dacă este necesar */
+.form-check-input {
+    width: 2.5em; /* Lățimea switch-ului */
+    height: 1.25em; /* Înălțimea switch-ului */
+    /* Alte stiluri specifice dacă vrei să schimbi culorile switch-ului în sine */
+}
 
-
+/* Stiluri pentru iconițe în interiorul switch-ului, dacă vrei să le arăți/ascunzi alături de switch */
+.theme-toggle-container .fas {
+    font-size: 1.5rem; /* Mărimea iconiței */
+    color: var(--culoare-text); /* Culoarea iconiței, va folosi tema */
+    transition: color 0.3s ease; /* Tranziție fluidă */
+}

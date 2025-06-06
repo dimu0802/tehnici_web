@@ -195,6 +195,68 @@ function afisareEroare(res, identificator, titlu, text, imagine) {
     });
 }
 
+//bonus 1 etapa 6-limite din baza de date
+async function getStatisticiProduse() {
+    try {
+        // Query pentru statistici generale
+        const queryStats = `
+            SELECT 
+                MIN(cantitate) as cantitate_min,
+                MAX(cantitate) as cantitate_max
+            FROM bauturi
+        `;
+        
+        const rezultatStats = await client.query(queryStats);
+        
+        // Query pentru valorile distincte
+        const queryDistincte = `
+            SELECT DISTINCT 
+                aroma,
+                culoare,
+                categorie,
+                contine_zahar
+            FROM bauturi
+            ORDER BY aroma, culoare, categorie
+        `;
+        
+        const rezultatDistincte = await client.query(queryDistincte);
+        
+        // Grupează valorile distincte
+        const arome = [...new Set(rezultatDistincte.rows.map(r => r.aroma))].filter(Boolean);
+        const culori = [...new Set(rezultatDistincte.rows.map(r => r.culoare))].filter(Boolean);
+        const categorii = [...new Set(rezultatDistincte.rows.map(r => r.categorie))].filter(Boolean);
+        
+        // Query pentru utilizări - versiune corectată
+        const queryUtilizari = `
+            SELECT DISTINCT 
+                unnest(string_to_array(
+                    replace(replace(replace(utilizari::text, '{', ''), '}', ''), '"', ''), 
+                    ','
+                )) as utilizare
+            FROM bauturi
+            WHERE utilizari IS NOT NULL AND utilizari::text != '{}'
+        `;
+        
+        const rezultatUtilizari = await client.query(queryUtilizari);
+        const utilizari = rezultatUtilizari.rows
+            .map(r => r.utilizare ? r.utilizare.trim() : '')
+            .filter(u => u.length > 0)
+            .sort();
+        
+        return {
+            stats: rezultatStats.rows[0],
+            optiuni: {
+                arome: arome,
+                culori: culori,
+                categorii: categorii,
+                utilizari: utilizari
+            }
+        };
+    } catch (error) {
+        console.error('Eroare la obținerea statisticilor:', error);
+        return null;
+    }
+}
 
 app.use('/resurse', express.static(path.join(__dirname, 'resurse'))); //toate folderele sunt accesibile din browser la adresa /resurse/
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
@@ -220,60 +282,71 @@ app.get("/*.ejs", function (req, res) {
     afisareEroare(res, 400);
 });
 
-app.get('/bauturi', function(req, res) {
-    const selectedCategorie = req.query.categorie;
-    let conditieQuery = "";
-    const parametri = [];
+app.get('/bauturi', async function(req, res) {
+    try {
+        const selectedCategorie = req.query.categorie;
+        let conditieQuery = "";
+        const parametri = [];
 
-    if (selectedCategorie) {
-        conditieQuery = " WHERE categorie = $1";
-        parametri.push(selectedCategorie);
-    }
+        if (selectedCategorie && selectedCategorie !== 'toate') {
+            conditieQuery = " WHERE categorie = $1";
+            parametri.push(selectedCategorie);
+        }
 
-    const queryProduse = "SELECT * FROM bauturi" + conditieQuery;
-    const queryCategorii = "SELECT unnest(enum_range(NULL::categorie_bautura)) AS categorie";
-    const queryArome = "SELECT unnest(enum_range(NULL::aroma_bautura)) AS aroma";
-    const queryCulori = "SELECT unnest(enum_range(NULL::culoare_lichid)) AS culoare";
+        // Query pentru produse
+        const queryProduse = "SELECT * FROM bauturi" + conditieQuery;
+        const rezProduse = await client.query(queryProduse, parametri);
 
-    client.query(queryProduse, parametri, function(err, rezProduse) {
-        if (err) return afisareEroare(res, 500);
+        // Obține statisticile folosind funcția existentă
+        const statisticiData = await getStatisticiProduse();
+        
+        if (!statisticiData) {
+            return afisareEroare(res, 500, "Eroare la obținerea statisticilor");
+        }
 
-        client.query(queryCategorii, function(err, rezCategorii) {
-            if (err) return afisareEroare(res, 500);
+        // Query pentru categorii mari (enumerație din baza de date)
+        const queryCategorii = "SELECT unnest(enum_range(NULL::categorie_bautura)) AS categorie";
+        const rezCategorii = await client.query(queryCategorii);
 
-            client.query(queryArome, function(err, rezArome) {
-                if (err) return afisareEroare(res, 500);
+        // Query pentru arome  
+        const queryArome = "SELECT unnest(enum_range(NULL::aroma_bautura)) AS aroma";
+        const rezArome = await client.query(queryArome);
 
-                client.query(queryCulori, function(err, rezCulori) {
-                    if (err) return afisareEroare(res, 500);
+        // Query pentru culori
+        const queryCulori = "SELECT unnest(enum_range(NULL::culoare_lichid)) AS culoare";
+        const rezCulori = await client.query(queryCulori);
 
-                    res.render("pagini/produse", {
-                        produse: rezProduse.rows,
-                        optiuni: {
-                            categorii: rezCategorii.rows.map(c => c.categorie),
-                            arome: rezArome.rows.map(a => a.aroma),
-                            culori: rezCulori.rows.map(c => c.culoare)
-                        },
-                        categorie_selectata: selectedCategorie || "toate"
-                    });
-                });
-            });
+        // Renderează pagina cu toate datele
+        res.render("pagini/produse", {
+            produse: rezProduse.rows,
+            statistici: statisticiData.stats, // Statisticile pentru input-uri
+            optiuni: {
+                categorii: rezCategorii.rows.map(c => c.categorie),
+                arome: rezArome.rows.map(a => a.aroma),
+                culori: rezCulori.rows.map(c => c.culoare),
+                utilizari: statisticiData.optiuni.utilizari
+            },
+            categorie_selectata: selectedCategorie || "toate"
         });
-    });
+
+    } catch (error) {
+        console.error('Eroare în ruta /bauturi:', error);
+        afisareEroare(res, 500);
+    }
 });
 
+//etapa 6- generare pagina pt produs la request
+app.get("/bautura/:id", function(req, res) { //defineste o ruta get care are la final are bauturi/2 (id sticla aleasa)
+    const idProdus = req.params.id; //obtine id ul
+    const query = "SELECT * FROM bauturi WHERE id = $1"; //defineste un query care cauta produsul cu id dat
 
-app.get("/bautura/:id", function(req, res) {
-    const idProdus = req.params.id;
-    const query = "SELECT * FROM bauturi WHERE id = $1";
-
-    client.query(query, [idProdus], function(err, rez) {
+    client.query(query, [idProdus], function(err, rez) { //executa query ul anterior, inlocuieste idProdus in locul lui $1
         if (err || rez.rows.length === 0) {
             console.log("Eroare la căutarea produsului:", err);
             return afisareEroare(res, 404, "Produsul nu a fost găsit");
         }
 
-        res.render("pagini/produs", { prod: rez.rows[0] });
+        res.render("pagini/produs", { prod: rez.rows[0] }); // trimite catre pagini/produs rezultatul rez.rows[0]
     });
 });
 
